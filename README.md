@@ -1,4 +1,4 @@
-# ANI-Analysis-Tutorial
+# Genomic Species Delineation Framework
 
 A reproducible tutorial repository for microbial genome ANI analysis using established tools: **FastANI**, **pyani**, **dRep**, and **GTDB-Tk**.
 

@@ -1,0 +1,6 @@
+genome,secondary_cluster,threshold,cluster_method,comparison_algorithm,primary_cluster
+A_reference.fna,1_1,0.050000000000000044,average,fastANI,1
+B_same_species_98ANI.fna,1_1,0.050000000000000044,average,fastANI,1
+C_boundary_95ANI.fna,1_2,0.050000000000000044,average,fastANI,1
+D_related_below_species_92ANI.fna,1_3,0.050000000000000044,average,fastANI,1
+E_distant_85ANI.fna,2_0,0.050000000000000044,average,fastANI,2

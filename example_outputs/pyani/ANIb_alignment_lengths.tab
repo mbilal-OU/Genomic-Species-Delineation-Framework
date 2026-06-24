@@ -1,0 +1,6 @@
+	A_reference	B_same_species_98ANI	C_boundary_95ANI	D_related_below_species_92ANI	E_distant_85ANI
+A_reference	15000.0	15000.0	14995.0	14999.0	14955.0
+B_same_species_98ANI	15000.0	15000.0	14995.0	14999.0	14944.0
+C_boundary_95ANI	14995.0	14995.0	15000.0	14982.0	14902.0
+D_related_below_species_92ANI	14999.0	14999.0	14982.0	15000.0	14933.0
+E_distant_85ANI	14955.0	14944.0	14902.0	14933.0	15000.0

@@ -1,0 +1,30 @@
+06-24 13:49 DEBUG    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+06-24 13:49 DEBUG    ***Logger started up at /mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/example_outputs/drep/drep_dereplicate/log/logger.log***
+06-24 13:49 DEBUG    Command to run dRep was: /root/miniconda3/envs/gtdbtk_new/bin/dRep dereplicate example_outputs/drep/drep_dereplicate -g toy_genomes/A_reference.fna toy_genomes/B_same_species_98ANI.fna toy_genomes/C_boundary_95ANI.fna toy_genomes/D_related_below_species_92ANI.fna toy_genomes/E_distant_85ANI.fna -p 4 -sa 0.95
+
+06-24 13:49 DEBUG    dRep version 3.6.2 was run 
+
+06-24 13:49 DEBUG    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+06-24 13:49 DEBUG    Namespace(operation='dereplicate', work_directory='example_outputs/drep/drep_dereplicate', processors=4, debug=False, genomes=['toy_genomes/A_reference.fna', 'toy_genomes/B_same_species_98ANI.fna', 'toy_genomes/C_boundary_95ANI.fna', 'toy_genomes/D_related_below_species_92ANI.fna', 'toy_genomes/E_distant_85ANI.fna'], length=50000, completeness=75, contamination=25, ignoreGenomeQuality=False, genomeInfo=None, checkM_method='lineage_wf', set_recursion='0', checkm_group_size=2000, S_algorithm='fastANI', MASH_sketch=1000, SkipMash=False, SkipSecondary=False, skani_extra='', n_PRESET='normal', P_ani=0.9, S_ani=0.95, cov_thresh=0.1, coverage_method='larger', clusterAlg='average', low_ram_primary_clustering=False, multiround_primary_clustering=False, primary_chunksize=5000, greedy_secondary_clustering=False, run_tertiary_clustering=False, completeness_weight=1, contamination_weight=5, strain_heterogeneity_weight=1, N50_weight=0.5, size_weight=0, centrality_weight=1, extra_weight_table=None, gen_warnings=False, warn_dist=0.25, warn_sim=0.98, warn_aln=0.25, skip_plots=False)
+06-24 13:49 DEBUG    Starting the dereplicate operation
+06-24 13:49 INFO     ***************************************************
+    ..:: dRep dereplicate Step 1. Filter ::..
+***************************************************
+    
+06-24 13:49 DEBUG    Loading work directory in filter
+06-24 13:49 DEBUG    Located: /mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/example_outputs/drep/drep_dereplicate
+Datatables: []
+Cluster files: []
+Arguments: []
+06-24 13:49 DEBUG    Validating filter arguments
+06-24 13:49 INFO     Will filter the genome list
+06-24 13:49 INFO     5 genomes were input to dRep
+06-24 13:49 INFO     Calculating genome info of genomes
+06-24 13:49 DEBUG    Filtering genomes by size
+06-24 13:49 INFO     0.00% of genomes passed length filtering
+06-24 13:49 DEBUG    Running CheckM
+06-24 13:49 INFO     Running prodigal
+06-24 13:49 INFO     Past prodigal runs found- will not re-run
+06-24 13:49 INFO     Running checkM
+06-24 13:49 INFO     Running checkM in 0 chunks

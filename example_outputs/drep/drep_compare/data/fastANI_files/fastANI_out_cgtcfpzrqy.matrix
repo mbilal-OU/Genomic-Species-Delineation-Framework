@@ -1,0 +1,5 @@
+4
+/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/A_reference.fna
+/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/B_same_species_98ANI.fna	97.845978
+/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/C_boundary_95ANI.fna	95.065811	93.014000
+/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/D_related_below_species_92ANI.fna	92.305122	90.580994	87.054909

@@ -1,0 +1,6 @@
+genome,location
+A_reference.fna,/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/A_reference.fna
+B_same_species_98ANI.fna,/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/B_same_species_98ANI.fna
+C_boundary_95ANI.fna,/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/C_boundary_95ANI.fna
+D_related_below_species_92ANI.fna,/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/D_related_below_species_92ANI.fna
+E_distant_85ANI.fna,/mnt/d/MuhammadBilal/scripts/ANI-Analysis-Tutorial/ani-analysis-tutorial-project/toy_genomes/E_distant_85ANI.fna

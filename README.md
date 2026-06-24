@@ -1,277 +1,417 @@
- # Genomic Species Delineation Framework
+# Genomic Species Delineation Framework
 
-**A reproducible framework for microbial species delineation using Average Nucleotide Identity (ANI), genome similarity, dereplication, taxonomy, and phylogenomic evidence.**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL2%20%7C%20HPC-blue)]()
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue)]()
+[![CI](https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework/actions/workflows/ci.yml/badge.svg)](https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework/actions)
 
----
-
-## Overview
-
-The increasing availability of microbial whole-genome sequences has transformed microbial taxonomy, systematics, and comparative genomics. Traditional approaches based on morphology, physiology, biochemical assays, and 16S rRNA gene similarity often lack sufficient resolution to distinguish closely related taxa. Whole-genome sequencing has therefore become the foundation of modern microbial species delineation.
-
-This repository provides a reproducible framework for genome-based species assessment using established tools including **FastANI**, **pyani**, **dRep**, and **GTDB-Tk**. The goal is not simply to calculate ANI values, but to place genome similarity within a broader framework of taxonomy, genome quality assessment, dereplication, and phylogenomic interpretation.
+> A reproducible framework for microbial species delineation using ANI,
+> genome quality assessment, dereplication, taxonomy, and phylogenomic evidence.
 
 ---
 
-## Scientific Background
+## Table of Contents
 
-### The Challenge of Defining Microbial Species
-
-Unlike sexually reproducing eukaryotes, bacteria and archaea do not conform easily to the Biological Species Concept. Horizontal gene transfer, recombination, ecological specialization, and genome plasticity complicate the identification of universally accepted species boundaries.
-
-Historically, microbial species delineation relied on DNA–DNA Hybridization (DDH), where strains sharing ≥70% DDH were generally considered members of the same species (Goris et al., 2007). While influential, DDH is labor-intensive, difficult to reproduce, and unsuitable for large-scale genomic studies.
-
-The emergence of whole-genome sequencing enabled the development of Average Nucleotide Identity (ANI), which has largely replaced DDH as the preferred genomic metric for species delineation (Richter & Rosselló-Móra, 2009).
-
-### Average Nucleotide Identity (ANI)
-
-ANI measures the average nucleotide similarity between homologous genomic regions shared by two genomes.
-
-Numerous studies have demonstrated that ANI values of approximately **95–96%** correspond closely to the traditional **70% DDH threshold**, making ANI the most widely used operational criterion for bacterial and archaeal species delineation (Richter & Rosselló-Móra, 2009; Jain et al., 2018).
-
-ANI is widely used for:
-
-* Species boundary assessment
-* Genome similarity analysis
-* Taxonomic validation
-* Comparative genomics
-* Genome dereplication
-
-### Why ANI Alone Is Not Enough
-
-Although ANI is extremely informative, species delineation should never rely exclusively on a numerical threshold.
-
-Interpretation should consider:
-
-* Genome completeness
-* Genome contamination
-* Assembly quality
-* Horizontal gene transfer
-* Recombination
-* Ecological divergence
-* Phylogenetic placement
-* Taxonomic context
-
-Accordingly, ANI should be interpreted as one component of an integrative genomic taxonomy framework.
+- [What This Does](#what-this-does)
+- [Background](#background)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Step-by-Step Guide](#step-by-step-guide)
+  - [Step 1 - Prepare genome list](#step-1---prepare-genome-list)
+  - [Step 2 - Run FastANI](#step-2---run-fastani)
+  - [Step 3 - Visualize ANI results](#step-3---visualize-ani-results)
+  - [Step 4 - Run pyani](#step-4---run-pyani-optional)
+  - [Step 5 - Dereplicate with dRep](#step-5---dereplicate-with-drep)
+  - [Step 6 - Classify with GTDB-Tk](#step-6---classify-with-gtdb-tk)
+  - [Step 7 - Interpret species boundaries](#step-7---interpret-species-boundaries)
+- [Scripts Reference](#scripts-reference)
+- [Species Boundary Thresholds](#species-boundary-thresholds)
+- [Example Results](#example-results)
+- [Repository Structure](#repository-structure)
+- [References](#references)
 
 ---
 
-## Framework Workflow
+## What This Does
 
-![Workflow](figures/genomic_species_delineation_workflow.png)
+This framework takes a set of microbial genome assemblies and runs them through
+a complete species delineation pipeline:
 
-The framework follows seven major stages:
-
-1. Obtain genome assemblies
-2. Assess genome quality
-3. Calculate pairwise genome similarity
-4. Generate ANI matrices and visualizations
-5. Compare and dereplicate genomes
-6. Assign taxonomy
-7. Interpret species boundaries
-
----
-
-## Repository Structure
-
-```text
-Genomic-Species-Delineation-Framework/
-├── docs/
-├── example_outputs/
-├── figures/
-├── scripts/
-├── toy_genomes/
-├── README.md
-├── requirements.txt
-└── LICENSE
+```
+Genome assemblies (.fna)
+        |
+        v
+FastANI - rapid all-vs-all ANI calculation
+        |
+        v
+ANI matrix + heatmap + pairwise barplot
+        |
+        v
+pyani   - detailed ANIb visualization (optional)
+        |
+        v
+dRep    - genome comparison and dereplication
+        |
+        v
+GTDB-Tk - taxonomy-aware classification
+        |
+        v
+Species boundary assessment report
 ```
 
----
-
-## Software Included
-
-| Software | Purpose                                           |
-| -------- | ------------------------------------------------- |
-| FastANI  | Rapid ANI estimation for large genome collections |
-| pyani    | ANIb-based ANI calculation and visualization      |
-| dRep     | Genome comparison and dereplication               |
-| GTDB-Tk  | Genome-based taxonomic classification             |
+The result is a clear, evidence-based answer to: are these genomes the same species?
 
 ---
 
-## Tested Status
+## Background
 
-This repository was tested locally on Linux/WSL environments.
+### Why ANI?
 
-Successfully tested workflows:
+Traditional microbial species delineation used DNA-DNA Hybridization (DDH),
+where strains sharing >=70% DDH were considered the same species (Goris et al., 2007).
+DDH is labor-intensive and not scalable to large genomic datasets.
 
-* FastANI v1.34 all-vs-all genome comparison
-* FastANI matrix generation
-* FastANI visualization workflow
-* pyani ANIb workflow
-* dRep compare workflow
+Average Nucleotide Identity (ANI) measures the mean nucleotide similarity between
+shared genomic regions of two genomes. Studies have shown that ANI values of
+approximately **95-96%** correspond closely to the traditional 70% DDH threshold,
+making ANI the standard genomic metric for species delineation (Richter and Rossello-Mora, 2009).
 
-Generated outputs include:
+### Why ANI alone is not enough
 
-```text
-example_outputs/fastani/
-example_outputs/pyani/
-example_outputs/drep/
-figures/fastani_real_heatmap.png
-figures/fastani_real_barplot.png
-```
+ANI should never be the only criterion. Always consider:
 
-Note: dRep dereplication is documented but was not demonstrated using the synthetic toy genomes because CheckM-based quality assessment requires realistic microbial genome assemblies.
+- Genome completeness and contamination
+- Assembly quality (N50, contig count)
+- Horizontal gene transfer and recombination
+- Phylogenetic placement
+- Ecological divergence
+- GTDB taxonomy assignment
+
+This framework integrates all these layers into one reproducible workflow.
 
 ---
 
 ## Installation
 
-```bash
-conda create -n species_delineation \
-  -c conda-forge \
-  -c bioconda \
-  python=3.10 \
-  fastani \
-  pyani \
-  drep \
-  gtdbtk \
-  pandas \
-  matplotlib \
-  seaborn \
-  blast \
-  -y
+### Option 1 - conda (recommended)
 
+```bash
+# Create environment with all tools
+conda create -n species_delineation python=3.10 -y
 conda activate species_delineation
+
+# Install bioinformatics tools
+conda install -c bioconda -c conda-forge fastani drep -y
+
+# Install Python dependencies
+pip install -r requirements.txt
+```
+
+### Option 2 - install tools separately
+
+```bash
+# FastANI
+conda install -c bioconda fastani -y
+fastANI --version
+
+# dRep
+conda install -c bioconda drep -y
+dRep -h
+
+# pyani (optional)
+pip install pyani
+
+# GTDB-Tk (large database required)
+conda install -c bioconda gtdbtk -y
+download-db.sh
+```
+
+### Verify installation
+
+```bash
+fastANI --version
+dRep -h | head -5
+python3 -c "import pandas, matplotlib, numpy; print('Python deps OK')"
 ```
 
 ---
 
 ## Quick Start
 
-### FastANI
-
 ```bash
+# Clone the repository
+git clone https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework.git
+cd Genomic-Species-Delineation-Framework
+
+# Run FastANI on toy genomes
 bash scripts/01_make_fastani_lists.sh
 bash scripts/02_run_fastani_all_vs_all.sh
-python scripts/08_parse_fastani_and_plot.py
+
+# Visualize results
+python3 scripts/08_parse_fastani_and_plot.py
+
+# View outputs
+ls example_outputs/fastani/
+ls figures/
 ```
 
-### pyani
+---
+
+## Step-by-Step Guide
+
+### Step 1 - Prepare genome list
+
+Put all your genome FASTA files in one directory and create a genome list:
+
+```bash
+# If using your own genomes
+ls /path/to/genomes/*.fna > genome_list.txt
+wc -l genome_list.txt
+
+# If using toy genomes included in this repo
+bash scripts/01_make_fastani_lists.sh
+```
+
+The script creates:
+- `fastani_query_list.txt` - query genomes
+- `fastani_reference_list.txt` - reference genomes (same list for all-vs-all)
+
+---
+
+### Step 2 - Run FastANI
+
+```bash
+bash scripts/02_run_fastani_all_vs_all.sh
+```
+
+Or run manually:
+
+```bash
+fastANI \
+    --ql fastani_query_list.txt \
+    --rl fastani_reference_list.txt \
+    --output example_outputs/fastani/fastani_results.txt \
+    --threads 8 \
+    --matrix
+```
+
+Output:
+```
+example_outputs/fastani/fastani_results.txt        - pairwise ANI table
+example_outputs/fastani/fastani_results.txt.matrix - square matrix
+```
+
+Each line: `query_genome  ref_genome  ANI  fragments_mapped  total_fragments`
+
+---
+
+### Step 3 - Visualize ANI results
+
+```bash
+python3 scripts/08_parse_fastani_and_plot.py
+```
+
+Generates:
+- `figures/fastani_real_heatmap.png` - clustered ANI heatmap
+- `figures/fastani_real_barplot.png` - pairwise comparison barplot
+
+---
+
+### Step 4 - Run pyani (optional)
+
+pyani provides more detailed ANIb-based analysis with statistical output.
+Useful when you need precise ANI values for borderline cases near the 95-96% threshold.
 
 ```bash
 bash scripts/03_run_pyani.sh
 ```
 
-### dRep
+Output saved to `example_outputs/pyani/`
+
+---
+
+### Step 5 - Dereplicate with dRep
+
+dRep clusters genomes by ANI and selects the best representative from each cluster.
+Use this when you have many closely related genomes and want to reduce redundancy.
 
 ```bash
 bash scripts/04_run_drep_compare.sh
 ```
 
-### GTDB-Tk
+Key dRep parameters:
+```
+-pa 0.90    Primary clustering ANI threshold (genus level)
+-sa 0.95    Secondary clustering ANI threshold (species level)
+-nc 0.30    Minimum genome overlap required
+-comp 50    Minimum genome completeness (requires CheckM)
+-con 10     Maximum genome contamination (requires CheckM)
+```
+
+Output in `example_outputs/drep/`
+
+---
+
+### Step 6 - Classify with GTDB-Tk
+
+GTDB-Tk places genomes in the GTDB taxonomy tree using marker genes
+and phylogenetic placement. This gives you the most accurate, up-to-date
+taxonomic classification.
 
 ```bash
 bash scripts/06_run_gtdbtk_classify_example.sh
 ```
 
+Or directly:
+
+```bash
+gtdbtk classify_wf \
+    --genome_dir /path/to/genomes/ \
+    --out_dir gtdbtk_results/ \
+    --extension fna \
+    --cpus 16
+```
+
+Key output: `gtdbtk_results/gtdbtk.bac120.summary.tsv`
+
 ---
 
-## Species Boundary Interpretation
+### Step 7 - Interpret species boundaries
 
-| ANI (%) | Interpretation            |
-| ------- | ------------------------- |
-| 99–100  | Nearly identical strains  |
-| 96–99   | Generally same species    |
-| 95–96   | Species boundary zone     |
-| 94–95   | Borderline classification |
-| <94     | Usually different species |
+After running all tools, use this decision framework:
 
-ANI interpretation should always be integrated with:
+```
+ANI >= 96%   + same GTDB species    = same species (high confidence)
+ANI >= 96%   + different GTDB       = check phylogeny, possible misclassification
+ANI 95-96%   + any taxonomy         = borderline - need more evidence
+ANI 94-95%   + any taxonomy         = likely different species
+ANI < 94%    + any taxonomy         = different species
+```
 
-* Genome quality
-* Contamination estimates
-* Phylogenetic evidence
-* Taxonomic assignment
-* Ecological information
-* Gene content analyses
+Always cross-check with:
+- CheckM2 completeness and contamination values
+- dRep clustering results
+- GTDB phylogenetic placement
+- Published literature for the genus
+
+---
+
+## Scripts Reference
+
+| Script | Tool | Description |
+|---|---|---|
+| `01_make_fastani_lists.sh` | - | Generate genome path lists for FastANI |
+| `02_run_fastani_all_vs_all.sh` | FastANI | All-vs-all ANI comparison |
+| `03_run_pyani.sh` | pyani | ANIb-based detailed comparison |
+| `04_run_drep_compare.sh` | dRep | Genome comparison and dereplication |
+| `05_run_drep_dereplicate.sh` | dRep | Dereplication with quality filtering |
+| `06_run_gtdbtk_classify_example.sh` | GTDB-Tk | Taxonomy assignment |
+| `07_run_fastani_matrix.sh` | FastANI | Matrix output format |
+| `08_parse_fastani_and_plot.py` | Python | Heatmap and barplot generation |
+
+---
+
+## Species Boundary Thresholds
+
+| ANI (%) | Classification | Confidence |
+|---|---|---|
+| 99-100 | Nearly identical strains | High |
+| 96-99 | Same species | High |
+| 95-96 | Species boundary zone | Borderline - use additional evidence |
+| 94-95 | Likely different species | Moderate |
+| < 94 | Different species | High |
+
+These thresholds apply to bacteria and archaea. Always interpret ANI together
+with genome quality, phylogenetic placement, and ecological context.
+
+**Comparison with DDH:**
+The 95-96% ANI threshold corresponds to approximately 70% DDH (Goris et al., 2007),
+the traditional species boundary in prokaryotic taxonomy.
 
 ---
 
 ## Example Results
 
-The included toy dataset demonstrates genome similarity patterns across multiple levels of relatedness.
+The included toy dataset spans multiple levels of genomic relatedness
+to demonstrate the full range of ANI interpretation.
 
-| Genome Pair                                  | FastANI (%) | Interpretation           |
-| -------------------------------------------- | ----------- | ------------------------ |
-| A_reference vs B_same_species_98ANI          | 97.85       | Likely same species      |
-| A_reference vs C_boundary_95ANI              | 95.04       | Near species boundary    |
-| A_reference vs D_related_below_species_92ANI | 92.29       | Likely different species |
-| A_reference vs E_distant_85ANI               | 81.82       | Distant lineage          |
+| Genome pair | FastANI (%) | Interpretation |
+|---|---|---|
+| A_reference vs B_same_species_98ANI | 97.85 | Same species |
+| A_reference vs C_boundary_95ANI | 95.04 | Near species boundary |
+| A_reference vs D_related_below_species_92ANI | 92.29 | Different species |
+| A_reference vs E_distant_85ANI | 81.82 | Distant lineage |
 
-### FastANI Heatmap
+### ANI Heatmap
 
 ![FastANI Heatmap](figures/fastani_real_heatmap.png)
 
-### FastANI Pairwise Comparison
+### Pairwise ANI Comparison
 
 ![FastANI Barplot](figures/fastani_real_barplot.png)
 
 ---
 
-## Recommended Research Workflow
+## Repository Structure
 
-For real microbial genome projects:
-
-1. Assess genome quality using CheckM, CheckM2, BUSCO, or GTDB-Tk summaries.
-2. Remove incomplete or contaminated assemblies.
-3. Run FastANI for rapid all-vs-all genome similarity screening.
-4. Use pyani when detailed matrix visualization is required.
-5. Use dRep for comparison and dereplication of large genome collections.
-6. Use GTDB-Tk for taxonomy-aware classification.
-7. Interpret ANI together with phylogeny, ecology, and gene content.
-
----
-
-## Limitations
-
-This repository is intended as a reproducible educational and research framework.
-
-Important limitations include:
-
-* The included genomes are synthetic demonstration datasets.
-* ANI does not directly measure evolutionary history.
-* ANI should not replace phylogenetic analysis.
-* Borderline ANI values require careful interpretation.
-* Formal species descriptions require multiple independent lines of evidence.
-* Genome quality can strongly influence similarity estimates.
+```
+Genomic-Species-Delineation-Framework/
+|
+|- scripts/
+|   |- 01_make_fastani_lists.sh
+|   |- 02_run_fastani_all_vs_all.sh
+|   |- 03_run_pyani.sh
+|   |- 04_run_drep_compare.sh
+|   |- 05_run_drep_dereplicate.sh
+|   |- 06_run_gtdbtk_classify_example.sh
+|   |- 07_run_fastani_matrix.sh
+|   |- 08_parse_fastani_and_plot.py
+|
+|- toy_genomes/              - synthetic genomes for testing
+|- example_outputs/          - pre-generated output files
+|   |- fastani/
+|   |- pyani/
+|   |- drep/
+|
+|- figures/                  - output plots
+|- docs/                     - additional documentation
+|- requirements.txt
+|- LICENSE
+|- README.md
+```
 
 ---
 
 ## References
 
-1. Konstantinidis KT, Tiedje JM. 2005. Genomic insights that advance the species definition for prokaryotes. PNAS 102:2567–2572.
+1. Konstantinidis KT, Tiedje JM. 2005. Genomic insights that advance the species
+   definition for prokaryotes. PNAS 102:2567-2572.
 
-2. Goris J et al. 2007. DNA–DNA hybridization values and their relationship to whole-genome sequence similarities. IJSEM 57:81–91.
+2. Goris J et al. 2007. DNA-DNA hybridization values and their relationship to
+   whole-genome sequence similarities. IJSEM 57:81-91.
 
-3. Richter M, Rosselló-Móra R. 2009. Shifting the genomic gold standard for the prokaryotic species definition. PNAS 106:19126–19131.
+3. Richter M, Rossello-Mora R. 2009. Shifting the genomic gold standard for the
+   prokaryotic species definition. PNAS 106:19126-19131.
 
-4. Jain C et al. 2018. High throughput ANI analysis of 90K prokaryotic genomes reveals clear species boundaries. Nature Communications 9:5114.
+4. Jain C et al. 2018. High throughput ANI analysis of 90K prokaryotic genomes
+   reveals clear species boundaries. Nature Communications 9:5114.
 
-5. Olm MR et al. 2017. dRep: a tool for fast and accurate genomic comparisons. ISME Journal 11:2864–2868.
+5. Olm MR et al. 2017. dRep: a tool for fast and accurate genomic comparisons.
+   ISME Journal 11:2864-2868.
 
-6. Parks DH et al. 2020. A complete domain-to-species taxonomy for Bacteria and Archaea. Nature Biotechnology 38:1079–1086.
+6. Parks DH et al. 2020. A complete domain-to-species taxonomy for Bacteria and
+   Archaea. Nature Biotechnology 38:1079-1086.
 
 ---
 
 ## Author
 
 **Muhammad Bilal**
-PhD Student, Biological and Biomedical Sciences
-Oakland University, Rochester, Michigan, USA
-
+Department of Biological Sciences, Oakland University
+Rochester, Michigan, USA
 
 ---
 
 ## License
 
-MIT License
+MIT License - free to use, modify, and distribute with attribution.

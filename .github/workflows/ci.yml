@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Check script syntax
+        run: python3 -m py_compile scripts/08_parse_fastani_and_plot.py
+      - name: Check shell scripts
+        run: for f in scripts/*.sh; do bash -n "$f" && echo "OK: $f"; done

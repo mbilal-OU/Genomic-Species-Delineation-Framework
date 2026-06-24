@@ -1,3 +1,15 @@
 __pycache__/
 *.pyc
+*.pyo
 .DS_Store
+*.egg-info/
+*.log
+
+# Keep example outputs and figures
+# but ignore large intermediate files
+*.bam
+*.sam
+*.tmp
+fastani_query_list.txt
+fastani_reference_list.txt
+TEST_RUN_LOG.txt

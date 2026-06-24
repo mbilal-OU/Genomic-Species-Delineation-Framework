@@ -1,0 +1,5 @@
+toy_genomes/A_reference.fna
+toy_genomes/B_same_species_98ANI.fna
+toy_genomes/C_boundary_95ANI.fna
+toy_genomes/D_related_below_species_92ANI.fna
+toy_genomes/E_distant_85ANI.fna

@@ -1,0 +1,6 @@
+,A_reference,B_same_species_98ANI,C_boundary_95ANI,D_related_below_species_92ANI,E_distant_85ANI
+A_reference,99.9974,97.8456,95.0378,92.2922,81.8233
+B_same_species_98ANI,97.8464,99.9974,93.0134,90.6149,80.9978
+C_boundary_95ANI,95.0938,93.0146,99.9974,86.9311,78.4327
+D_related_below_species_92ANI,92.3181,90.5471,87.1787,99.9951,75.9991
+E_distant_85ANI,83.2991,81.9252,79.2914,76.8331,99.9948

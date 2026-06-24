@@ -1,0 +1,21 @@
+query,reference,ANI,fragments_mapped,total_fragments,pair,classification
+A_reference,B_same_species_98ANI,97.8456,5,5,A_reference vs B_same_species_98ANI,Likely same species
+A_reference,C_boundary_95ANI,95.0378,4,5,A_reference vs C_boundary_95ANI,Likely same species
+A_reference,D_related_below_species_92ANI,92.2922,4,5,A_reference vs D_related_below_species_92ANI,Likely different species
+A_reference,E_distant_85ANI,81.8233,4,5,A_reference vs E_distant_85ANI,Likely different species
+B_same_species_98ANI,A_reference,97.8464,5,5,B_same_species_98ANI vs A_reference,Likely same species
+B_same_species_98ANI,C_boundary_95ANI,93.0134,5,5,B_same_species_98ANI vs C_boundary_95ANI,Likely different species
+B_same_species_98ANI,D_related_below_species_92ANI,90.6149,4,5,B_same_species_98ANI vs D_related_below_species_92ANI,Likely different species
+B_same_species_98ANI,E_distant_85ANI,80.9978,3,5,B_same_species_98ANI vs E_distant_85ANI,Likely different species
+C_boundary_95ANI,A_reference,95.0938,5,5,C_boundary_95ANI vs A_reference,Likely same species
+C_boundary_95ANI,B_same_species_98ANI,93.0146,5,5,C_boundary_95ANI vs B_same_species_98ANI,Likely different species
+C_boundary_95ANI,D_related_below_species_92ANI,86.9311,4,5,C_boundary_95ANI vs D_related_below_species_92ANI,Likely different species
+C_boundary_95ANI,E_distant_85ANI,78.4327,3,5,C_boundary_95ANI vs E_distant_85ANI,Likely different species
+D_related_below_species_92ANI,A_reference,92.3181,4,5,D_related_below_species_92ANI vs A_reference,Likely different species
+D_related_below_species_92ANI,B_same_species_98ANI,90.5471,4,5,D_related_below_species_92ANI vs B_same_species_98ANI,Likely different species
+D_related_below_species_92ANI,C_boundary_95ANI,87.1787,4,5,D_related_below_species_92ANI vs C_boundary_95ANI,Likely different species
+D_related_below_species_92ANI,E_distant_85ANI,75.9991,3,5,D_related_below_species_92ANI vs E_distant_85ANI,Likely different species
+E_distant_85ANI,A_reference,83.2991,4,5,E_distant_85ANI vs A_reference,Likely different species
+E_distant_85ANI,B_same_species_98ANI,81.9252,3,5,E_distant_85ANI vs B_same_species_98ANI,Likely different species
+E_distant_85ANI,C_boundary_95ANI,79.2914,3,5,E_distant_85ANI vs C_boundary_95ANI,Likely different species
+E_distant_85ANI,D_related_below_species_92ANI,76.8331,2,5,E_distant_85ANI vs D_related_below_species_92ANI,Likely different species

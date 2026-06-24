@@ -1,0 +1,11 @@
+genome_1,genome_2,ANI_percent,interpretation
+A_reference,B_same_species_98ANI,98.2,Likely same species / very close strains
+A_reference,C_boundary_95ANI,95.5,Near species boundary; validate with taxonomy and phylogeny
+A_reference,D_related_below_species_92ANI,92.5,Likely different species
+A_reference,E_distant_85ANI,85.5,Likely different species
+B_same_species_98ANI,C_boundary_95ANI,94.8,Borderline below common cutoff; investigate carefully
+B_same_species_98ANI,D_related_below_species_92ANI,91.7,Likely different species
+B_same_species_98ANI,E_distant_85ANI,84.3,Likely different species
+C_boundary_95ANI,D_related_below_species_92ANI,90.8,Likely different species
+C_boundary_95ANI,E_distant_85ANI,83.5,Likely different species
+D_related_below_species_92ANI,E_distant_85ANI,82.0,Likely different species

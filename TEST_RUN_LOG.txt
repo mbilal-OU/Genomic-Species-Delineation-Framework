@@ -1,0 +1,27 @@
+ANI-Analysis-Tutorial test status
+
+This repository is a tutorial for established external ANI tools. The external tools
+FastANI, pyani, dRep, and GTDB-Tk were not executed in this ChatGPT environment.
+
+Files generated and checked:
+- synthetic toy FASTA genomes
+- example ANI matrix CSV
+- example pairwise ANI result CSV
+- heatmap figure
+- barplot figure
+- runnable shell scripts for external tools
+- plotting script
+
+To test locally:
+1. Install dependencies:
+   conda create -n ani_tutorial -c conda-forge -c bioconda python=3.10 fastani pyani drep gtdbtk pandas matplotlib -y
+   conda activate ani_tutorial
+
+2. Run:
+   bash scripts/01_make_fastani_lists.sh
+   bash scripts/02_run_fastani_all_vs_all.sh
+   bash scripts/03_run_pyani.sh
+   bash scripts/04_run_drep_compare.sh
+   python scripts/07_plot_example_ani_matrix.py
+
+GTDB-Tk requires database setup before real execution.

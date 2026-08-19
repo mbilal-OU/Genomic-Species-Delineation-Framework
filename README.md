@@ -29,13 +29,13 @@ SpeciesResolve separates the analysis into evidence layers:
 | ANI + alignment fraction | How similar are the shared genomic regions, and how much of the genomes participate in that comparison? | primary pairwise genomic evidence |
 | GTDB context | Do reference-based species assignment and phylogenomic placement agree with the pairwise result? | taxonomic and placement context |
 | dRep clustering | How do many genomes group under explicit ANI and coverage settings? | operational clustering and representative selection |
-| pyani | Does an alternative ANI implementation support the same near-boundary pattern? | optional methodological cross-check |
+| pyANI-plus | Does an alternative ANI implementation support the same near-boundary pattern? | optional methodological cross-check |
 | Phylogenomic context | Is the proposed grouping compatible with marker-gene or core-genome relationships? | supporting context, especially for discordant cases |
 
 Two cautions matter here:
 
 - **dRep is not an independent biological test of species identity.** Its clusters depend on similarity thresholds and algorithms chosen by the user.
-- **pyani is not automatically more accurate than FastANI.** It provides alternative ANI calculations that can be useful as a method comparison for selected genome pairs.
+- **pyANI-plus is not automatically more accurate than FastANI.** It provides alternative ANI calculations that can be useful as a method comparison for selected genome pairs.
 
 ---
 
@@ -251,13 +251,17 @@ Treat GTDB assignment as important taxonomic context, not as a replacement for i
 
 ---
 
-## pyani: optional method comparison
+## pyANI-plus: optional method comparison
 
-For selected close or boundary pairs, pyani can provide ANIb/ANIm-style comparisons using alternative algorithms.
+The original pyani project is deprecated upstream. SpeciesResolve uses **pyANI-plus** for new alternative-ANI comparisons.
+
+For selected close or boundary pairs, pyANI-plus can provide ANIb, ANIm, dnadiff, or FastANI-based comparisons using alternative workflows.
 
 ```bash
-bash scripts/03_run_pyani.sh
+bash scripts/03_run_pyani_plus.sh toy_genomes example_outputs/pyani_plus anib
 ```
+
+The historical `scripts/03_run_pyani.sh` name remains as a compatibility shim and forwards to pyANI-plus.
 
 Use this as a **methodological cross-check**, not as a second independent biological vote.
 
@@ -311,7 +315,8 @@ SpeciesResolve/
 ├── scripts/
 │   ├── 01_make_fastani_lists.sh
 │   ├── 02_run_fastani_all_vs_all.sh
-│   ├── 03_run_pyani.sh
+│   ├── 03_run_pyani_plus.sh
+│   ├── 03_run_pyani.sh             # compatibility shim
 │   ├── 04_run_drep_compare.sh
 │   ├── 05_run_drep_dereplicate.sh
 │   ├── 06_run_gtdbtk_classify_example.sh
@@ -337,7 +342,7 @@ GitHub Actions checks:
 - shell syntax;
 - unit tests for FastANI parsing, alignment fraction, missing values, and reciprocal pair summaries.
 
-FastANI, dRep, pyani, and GTDB-Tk are external tools. Large real-data analyses are a separate validation layer and should record software versions, database releases, input genome quality, and analysis parameters.
+FastANI, dRep, pyANI-plus, and GTDB-Tk are external tools. Large real-data analyses are a separate validation layer and should record software versions, database releases, input genome quality, and analysis parameters.
 
 ---
 
@@ -346,7 +351,7 @@ FastANI, dRep, pyani, and GTDB-Tk are external tools. Large real-data analyses a
 - Do not convert missing FastANI output into an invented low ANI value.
 - Do not use ANI without considering the amount of genome aligned.
 - Do not call dRep clustering independent evidence when it uses ANI-based similarity internally.
-- Do not treat pyani as automatically more precise than FastANI.
+- Do not treat pyANI-plus as automatically more precise than FastANI.
 - Do not treat a GTDB assignment as a substitute for examining the reference genome and species radius.
 - Do not infer formal species status from low-quality or contaminated assemblies.
 - Do not use one fixed threshold as a universal species law across all prokaryotic lineages.

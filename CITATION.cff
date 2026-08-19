@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "SpeciesResolve: Evidence-aware microbial genome species delineation"
+message: "If you use SpeciesResolve, please cite this software and the external tools used in your analysis."
+type: software
+authors:
+  - family-names: Bilal
+    given-names: Muhammad
+repository-code: "https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework"
+license: MIT
+keywords:
+  - microbial genomics
+  - species delineation
+  - average nucleotide identity
+  - ANI
+  - alignment fraction
+  - GTDB-Tk
+  - dRep
+  - comparative genomics

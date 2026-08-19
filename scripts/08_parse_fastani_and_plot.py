@@ -18,14 +18,20 @@ FASTANI_COLUMNS = [
 ]
 
 
+def empty_fastani_frame() -> pd.DataFrame:
+    return pd.DataFrame(columns=FASTANI_COLUMNS + ["alignment_fraction"])
+
+
 def read_fastani(path: Path) -> pd.DataFrame:
     """Read FastANI tabular output and calculate directional alignment fraction."""
     if not path.exists():
         raise FileNotFoundError(f"Missing FastANI output: {path}")
+    if path.stat().st_size == 0:
+        return empty_fastani_frame()
 
     df = pd.read_csv(path, sep="\t", header=None, names=FASTANI_COLUMNS)
     if df.empty:
-        return pd.DataFrame(columns=FASTANI_COLUMNS + ["alignment_fraction"])
+        return empty_fastani_frame()
 
     for column in ["ANI", "fragments_mapped", "total_fragments"]:
         df[column] = pd.to_numeric(df[column], errors="coerce")

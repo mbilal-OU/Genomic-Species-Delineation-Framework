@@ -1,23 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# pyani example.
-# pyani versions differ. Modern installs may provide 'pyani', while older installs
-# provide 'average_nucleotide_identity.py'.
-# Check your installed command using:
-#   pyani --help
-# or:
-#   average_nucleotide_identity.py --help
+cat >&2 <<'EOF'
+NOTE: upstream pyani is deprecated. SpeciesResolve now uses pyANI-plus.
+This compatibility script forwards to scripts/03_run_pyani_plus.sh.
+EOF
 
-mkdir -p example_outputs/pyani
-
-# Older/classic pyani command style:
-average_nucleotide_identity.py \
-  -i toy_genomes \
-  -o example_outputs/pyani \
-  -m ANIb \
-  -g \
-  --workers 4
-
-echo "pyani output folder:"
-echo "  example_outputs/pyani"
+exec bash scripts/03_run_pyani_plus.sh "$@"

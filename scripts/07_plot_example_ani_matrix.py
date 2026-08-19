@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-import pandas as pd
-import matplotlib.pyplot as plt
+
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 matrix_file = Path("example_outputs/example_ani_matrix.csv")
 out_file = Path("figures/example_ani_heatmap_from_script.png")
@@ -18,7 +20,7 @@ for i in range(ani.shape[0]):
     for j in range(ani.shape[1]):
         plt.text(j, i, f"{ani.iloc[i, j]:.1f}", ha="center", va="center", fontsize=7)
 
-plt.title("Example ANI Heatmap")
+plt.title("Synthetic Toy ANI Heatmap")
 plt.tight_layout()
 plt.savefig(out_file, dpi=300)
 print(f"Saved: {out_file}")

@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# GTDB-Tk classification example.
-# GTDB-Tk performs taxonomic placement and also uses ANI-related logic for species assignment.
-# Requires GTDB-Tk database configured in your environment.
+GENOME_DIR="${1:-toy_genomes}"
+OUT_DIR="${2:-example_outputs/gtdbtk/gtdbtk_classify}"
+CPUS="${3:-4}"
+EXTENSION="${4:-fna}"
 
-mkdir -p example_outputs/gtdbtk
+if ! command -v gtdbtk >/dev/null 2>&1; then
+  echo "ERROR: gtdbtk is not available in PATH." >&2
+  echo "Install GTDB-Tk separately and configure its reference database first." >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname "$OUT_DIR")"
 
 gtdbtk classify_wf \
-  --genome_dir toy_genomes \
-  --out_dir example_outputs/gtdbtk/gtdbtk_classify \
-  --extension fna \
-  --cpus 4
+  --genome_dir "$GENOME_DIR" \
+  --out_dir "$OUT_DIR" \
+  --extension "$EXTENSION" \
+  --cpus "$CPUS"
 
-echo "GTDB-Tk output folder:"
-echo "  example_outputs/gtdbtk/gtdbtk_classify"
+echo "GTDB-Tk output: $OUT_DIR"
+echo "Record the GTDB-Tk version and GTDB reference release with your analysis."

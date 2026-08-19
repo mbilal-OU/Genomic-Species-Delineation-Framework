@@ -1,0 +1,14 @@
+name: speciesresolve
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.10
+  - fastani
+  - drep
+  - pandas
+  - matplotlib
+  - numpy
+  - scipy
+  - pytest

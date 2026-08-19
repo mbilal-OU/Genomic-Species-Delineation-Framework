@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL2%20%7C%20HPC-blue)]()
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)]()
-[![CI](https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework/actions/workflows/ci.yml/badge.svg)](https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework/actions)
+[![CI](https://github.com/mbilal-OU/SpeciesResolve/actions/workflows/ci.yml/badge.svg)](https://github.com/mbilal-OU/SpeciesResolve/actions)
 
 **SpeciesResolve** is an evidence-aware framework for microbial genome species delineation. It combines ANI, alignment fraction, genome quality, GTDB taxonomic context, dereplication, and phylogenomic placement without reducing species assignment to one cutoff.
 
@@ -94,8 +94,8 @@ SpeciesResolve does not automatically turn any of these states into a formal tax
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/mbilal-OU/Genomic-Species-Delineation-Framework.git
-cd Genomic-Species-Delineation-Framework
+git clone https://github.com/mbilal-OU/SpeciesResolve.git
+cd SpeciesResolve
 ```
 
 ### 2. Create the core environment
